@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      discovery:
+        register: false
+    gateway:
+      routes:
+        - id: rate
+          uri: lb://rating-service
+          predicates:
+            - Path=/rate/**
+          filters:
+            - StripPrefix=1
+server:
+  port: 8600
+
